@@ -50,7 +50,8 @@
 
 .quiz_cards {
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .quiz_card {
