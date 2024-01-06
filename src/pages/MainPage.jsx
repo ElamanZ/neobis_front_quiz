@@ -1,4 +1,5 @@
 import React from 'react';
+import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css';
 import styles from './styles.module.scss'
 import arrow_icon from '../assets/images/arrow_icon.svg'
@@ -10,7 +11,7 @@ import card_quiz_icon1 from '../assets/images/card_quiz_icon11.png'
 import card_quiz_icon2 from '../assets/images/card_quiz_icon22.png'
 import card_quiz_icon3 from '../assets/images/card_quiz_icon33.png'
 import card_quiz_icon4 from '../assets/images/card_quiz_icon44.png'
-import {Swiper, SwiperSlide} from "swiper/react";
+
 function MainPage(props) {
 
     const articleCardsData = [
