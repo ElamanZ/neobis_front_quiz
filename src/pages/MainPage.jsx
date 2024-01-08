@@ -11,6 +11,7 @@ import card_quiz_icon1 from '../assets/images/card_quiz_icon11.png'
 import card_quiz_icon2 from '../assets/images/card_quiz_icon22.png'
 import card_quiz_icon3 from '../assets/images/card_quiz_icon33.png'
 import card_quiz_icon4 from '../assets/images/card_quiz_icon44.png'
+import './mainStyles.css';
 
 function MainPage(props) {
 
@@ -82,7 +83,7 @@ function MainPage(props) {
                 <h1>Статьи</h1>
                 <img src={arrow_icon} alt="arrow_icon"/>
             </div>
-            <div className={styles.articleCards}>
+            <div className={styles.main__articleCards}>
                 <Swiper
 
                     spaceBetween={-50}
@@ -92,7 +93,7 @@ function MainPage(props) {
                 >
                     {articleCardsData.map((articleData) => (
                         <SwiperSlide key={articleData.id}>
-                            <div className={styles.articleCard} style={{ backgroundColor: articleData.backgroundColor }}>
+                            <div className={styles.main__articleCard} style={{ backgroundColor: articleData.backgroundColor }}>
                                 <p>{articleData.title}</p>
                                 <img src={articleData.image} alt={`card_icon${articleData.id}`} />
                                 <span>#{articleData.category}</span>
@@ -108,10 +109,10 @@ function MainPage(props) {
                 <img src={arrow_icon} alt="arrow_icon"/>
             </div>
 
-            <div className={styles.quiz_cards}>
+            <div className={styles.main__quiz_cards}>
 
                 {quizCardsData.map((quizData) => (
-                    <div className={styles.quiz_card} style={{ backgroundColor: quizData.backgroundColor }}>
+                    <div className={styles.main__quiz_card} key={quizData.id} style={{ backgroundColor: quizData.backgroundColor }}>
                         <img src={quizData.image} alt="card_quiz_icon1"/>
                         <p>{quizData.title}</p>
                         <span>{quizData.text}</span>

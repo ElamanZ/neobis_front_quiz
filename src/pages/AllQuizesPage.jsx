@@ -14,7 +14,7 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 
-import './styles.css';
+import './allQuizes.css';
 
 
 
@@ -65,7 +65,7 @@ function AllQuizesPage(props) {
             <div className='container'>
                 <Link to='/main' className={styles.back_btn}>
                     <img className={styles.back_btn_arrow_left} src={arrow_left} alt="arrow_left"/>
-                    <div className={styles.back_btn_title}>
+                    <div className={styles.titleWithBackgraund}>
                         <p>Все квизы</p>
                     </div>
                 </Link>
