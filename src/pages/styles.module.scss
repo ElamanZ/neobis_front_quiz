@@ -52,6 +52,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+
 }
 
 .quiz_card {
@@ -116,11 +117,15 @@
 
 .allQuiz_cards {
   display: flex;
-  margin-bottom: 36px;
+  margin: 0 auto;
+  width: 1200px;
+  max-width: 100%;
+
 }
 
 .allQuiz_card {
-  width: 720px;
+  //width: 720px;
+  //height: 512px;
   height: 512px;
   display: flex;
   flex-direction: column;
