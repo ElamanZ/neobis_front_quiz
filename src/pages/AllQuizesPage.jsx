@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import arrow_left from '../assets/images/arrow_left_icon.svg'
 import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css';
@@ -58,16 +58,16 @@ function AllQuizesPage(props) {
             boxShadow: '0 0 24px 8px #DAB5FF'
         }
     ];
-
+    const navigate = useNavigate();
     return (
         <>
             <div className='container'>
-                <Link to='/main' className={styles.back_btn}>
-                    <img className={styles.back_btn_arrow_left} src={arrow_left} alt="arrow_left"/>
-                    <div className={styles.titleWithBackgraund}>
+                <div className={styles.back_btn}>
+                    <img className={styles.back_btn_arrow_left} src={arrow_left} alt="arrow_left" onClick={() => navigate('/main')}/>
+                    <div className={styles.titleWithBackgraund} onClick={() => navigate('/main')}>
                         <p>Все квизы</p>
                     </div>
-                </Link>
+                </div>
             </div>
             <div className={styles.allQuiz_cards}>
 
@@ -77,10 +77,10 @@ function AllQuizesPage(props) {
                     centeredSlides={true}
                     slidesPerView={'auto'}
                     coverflowEffect={{
-                        rotate: 30,
+                        rotate: 8,
                         stretch: 0,
-                        depth: 1,
-                        modifier: -1,
+                        depth: -3,
+                        modifier: 3,
                         slideShadows: true,
                     }}
 
