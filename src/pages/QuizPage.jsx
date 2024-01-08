@@ -56,7 +56,9 @@ function QuizPage(props) {
                 <div className={styles.quizDescription}>
                     <p>{quizData[0].description}</p>
                 </div>
-                <button className={styles.startBtn_quiz}>Начать квиз</button>
+                <div className={styles.startBtn_quizBlock}>
+                    <button className={styles.startBtn_quiz}>Начать квиз</button>
+                </div>
             </div>
         </div>
     );

@@ -11,7 +11,7 @@ import card_quiz_icon1 from '../assets/images/card_quiz_icon11.png'
 import card_quiz_icon2 from '../assets/images/card_quiz_icon22.png'
 import card_quiz_icon3 from '../assets/images/card_quiz_icon33.png'
 import card_quiz_icon4 from '../assets/images/card_quiz_icon44.png'
-import './mainStyles.css';
+import './styles2.css';
 
 function MainPage(props) {
 

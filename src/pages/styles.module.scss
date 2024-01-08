@@ -112,17 +112,14 @@
   }
 }
 
-  .allQuiz_cards {
+.allQuiz_cards {
   display: flex;
   margin: 0 auto;
   width: 1200px;
   max-width: 100%;
-
 }
 
 .allQuiz_card {
-  //width: 720px;
-  //height: 512px;
   height: 512px;
   display: flex;
   flex-direction: column;
@@ -144,7 +141,9 @@
     font-size: 20px;
   }
 }
-
+.startBtn_quizBlock{
+  padding-bottom: 36px;
+}
 .startBtn_quiz {
   width: 358px;
   height: 48px;

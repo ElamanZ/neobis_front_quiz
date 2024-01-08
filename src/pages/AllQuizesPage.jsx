@@ -10,15 +10,14 @@ import card_quiz_icon2 from "../assets/images/card_quiz_icon222.svg";
 import card_quiz_icon3 from "../assets/images/card_quiz_icon333.svg";
 import card_quiz_icon4 from "../assets/images/card_quiz_icon444.svg";
 
-import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 
-import './allQuizes.css';
+import './styles.css';
 
 
 
-// import required modules
+
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 
 function AllQuizesPage(props) {
@@ -85,6 +84,7 @@ function AllQuizesPage(props) {
                         slideShadows: true,
                     }}
 
+
                     modules={[EffectCoverflow]}
                     className="mySwiper"
                 >
@@ -102,8 +102,9 @@ function AllQuizesPage(props) {
                 </Swiper>
 
             </div>
-
-            <button className={styles.startBtn_quiz}>Начать квиз</button>
+            <div className={styles.startBtn_quizBlock}>
+                <button className={styles.startBtn_quiz}>Начать квиз</button>
+            </div>
         </>
 
 
