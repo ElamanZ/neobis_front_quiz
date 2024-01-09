@@ -5,6 +5,9 @@ import quizImg1 from "../assets/images/card_quiz_icon111.svg";
 import quizImg2 from "../assets/images/card_quiz_icon222.svg";
 import quizImg3 from "../assets/images/card_quiz_icon333.svg";
 import quizImg4 from "../assets/images/card_quiz_icon444.svg";
+import {useNavigate} from "react-router-dom";
+import QuizTest from "./QuizTest.jsx";
+import BackBtn from "../components/backBtn.jsx";
 function QuizPage(props) {
 
     const quizData = [
@@ -41,11 +44,11 @@ function QuizPage(props) {
                 'на развитие человечества.'
         }
     ]
+    const navigate = useNavigate();
+
     return (
         <div className="container">
-            <div className={styles.back_btn}>
-                <img src={backBtn} alt="backBtn"/>
-            </div>
+            <BackBtn/>
             <div className={styles.quizBlock}>
                 <div className={styles.titleWithBackgraund}>
                     <p>Квиз “{quizData[0].title}”</p>
@@ -57,7 +60,7 @@ function QuizPage(props) {
                     <p>{quizData[0].description}</p>
                 </div>
                 <div className={styles.startBtn_quizBlock}>
-                    <button className={styles.startBtn_quiz}>Начать квиз</button>
+                    <button className={styles.startBtn_quiz} onClick={() => navigate('/qiiz-test')}>Начать квиз</button>
                 </div>
             </div>
         </div>
