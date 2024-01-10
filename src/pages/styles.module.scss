@@ -512,3 +512,51 @@
     background-color: #000000;
   }
 }
+.notFoundBlock {
+  margin-top: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 37px;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 120px;
+    height: 120px;
+  }
+  p {
+    text-align: center;
+    max-width: 331px;
+    width: 100%;
+    font-weight: 500;
+    font-size: 22px;
+    color: #5D5D5D;
+  }
+}
+
+.articleResult__title {
+  font-weight: 700;
+  font-size: 32px;
+  margin: 16px 0 12px;
+}
+.articleResult__category {
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.articleResult__ellipse {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #000000;
+}
+
+.articleResult__text {
+  font-weight: 500;
+  font-size: 18px;
+
+}
+

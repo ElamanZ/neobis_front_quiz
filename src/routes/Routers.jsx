@@ -6,6 +6,8 @@ import AllQuizesPage from "../pages/AllQuizesPage.jsx";
 import QuizPage from "../pages/QuizPage.jsx";
 import QuizTest from "../pages/QuizTest.jsx";
 import FinishTestPage from "../pages/FinishTestPage.jsx";
+import ArticlesNotfound from "../components/articlesNotfound.jsx";
+import ArticleResult from "../components/articleResult.jsx";
 
 
 function Routers(props) {
@@ -18,6 +20,8 @@ function Routers(props) {
             <Route path="/quiz" element={<QuizPage/>} />
             <Route path="/quiz-test" element={<QuizTest text='/main'/>} />
             <Route path="/finish-test" element={<FinishTestPage/>} />
+            <Route path="/articles-not-found" element={<ArticlesNotfound/>} />
+            <Route path="/article-result" element={<ArticleResult/>} />
         </Routes>
     );
 }
