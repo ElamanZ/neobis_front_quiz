@@ -103,7 +103,7 @@ function AllQuizesPage(props) {
 
             </div>
             <div className={styles.startBtn_quizBlock}>
-                <button className={styles.startBtn_quiz}>Начать квиз</button>
+                <button onClick={() => navigate('/quiz')} className={styles.startBtn_quiz}>Начать квиз</button>
             </div>
         </>
 

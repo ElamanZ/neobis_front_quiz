@@ -60,7 +60,7 @@ function QuizPage(props) {
                     <p>{quizData[0].description}</p>
                 </div>
                 <div className={styles.startBtn_quizBlock}>
-                    <button className={styles.startBtn_quiz} onClick={() => navigate('/qiiz-test')}>Начать квиз</button>
+                    <button className={styles.startBtn_quiz} onClick={() => navigate('/quiz-test')}>Начать квиз</button>
                 </div>
             </div>
         </div>

@@ -111,7 +111,7 @@ function MainPage(props) {
 
             <div className={styles.title}>
                 <h1>Квизы</h1>
-                <img src={arrow_icon} alt="arrow_icon" onClick={() => navigate('/all_quizes')}/>
+                <img src={arrow_icon} alt="arrow_icon" onClick={() => navigate('/all-quizes')}/>
             </div>
 
             <div className={styles.main__quiz_cards}>
