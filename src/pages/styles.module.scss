@@ -214,10 +214,19 @@
   }
 }
 .quizTest__progressBar {
-  width: 940px;
+  position: relative;
+  max-width: 940px;
+  width: 100%;
   height: 12px;
   border-radius: 13px;
-  border: solid 1px;
+  border: solid 2px;
+  overflow: hidden;
+}
+.quizTest__progress {
+  position: absolute;
+  height: 100%;
+  background-color: #B9FFA0;
+
 }
 .quizTest__answers {
   display: flex;
