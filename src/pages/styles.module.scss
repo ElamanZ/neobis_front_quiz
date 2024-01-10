@@ -389,7 +389,7 @@
   top: calc(100% + 5px);
   right: 0;
   width: 353px;
-  height: 537px;
+  max-height: 1500px;
   background-color: #ffffff;
   border: 1px solid #000000;
   border-radius: 8px;
@@ -414,16 +414,18 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
     input[type="checkbox"] {
       margin-right: 10px;
       width: 32px;
       height: 32px;
       cursor: pointer;
       background-color: black;
-    }
-    input {
 
     }
+
   }
 }
 

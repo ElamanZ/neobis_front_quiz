@@ -11,18 +11,56 @@ function ArticlesPage(props) {
     const [ellipseVisible, setEllipseVisible] = useState('none')
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [isFilterApplied, setIsFilterApplied] = useState(false);
-
     const handleFilterOpen = () => {
         setIsFilterOpen(!isFilterOpen);
     };
 
-    const handleApplyFilter = () => {
-        setIsFilterApplied(true);
-        setIsFilterOpen(false);
-        // Здесь можно добавить логику применения фильтров
+    const initialCategories = {
+        history: false,
+        literature: false,
+        philosophy: false,
+        psychology: false,
+        art: false,
+        music: false,
+        cinema: false,
     };
 
+
+    const [categories, setCategories] = useState(initialCategories);
+
+    const categoryList = [
+        { key: 'history', label: 'История' },
+        { key: 'literature', label: 'Литература' },
+        { key: 'philosophy', label: 'Философия' },
+        { key: 'psychology', label: 'Психология' },
+        { key: 'art', label: 'Искусство' },
+        { key: 'music', label: 'Музыка' },
+        { key: 'cinema', label: 'Кино' },
+    ];
+
+    const handleCheckboxChange = (categoryKey) => {
+        setCategories({ ...categories, [categoryKey]: !categories[categoryKey] });
+    };
+
+    const handleResetFilters = () => {
+        setCategories(initialCategories);
+    };
+
+
+
+    const handleApplyFilter = () => {
+        setIsFilterOpen(false);
+        const selectedCategories = Object.keys(categories).filter(
+            (category) => categories[category]
+        );
+        if (selectedCategories.length > 0) {
+            console.log('Selected categories:', selectedCategories);
+        } else {
+            return alert('Выберите хотя бы одну категорию!');
+        }
+        console.log('Selected categories:', selectedCategories);
+
+    };
     return (
         <div className='container'>
             <div className={styles.articles__header}>
@@ -49,16 +87,23 @@ function ArticlesPage(props) {
                                     {/* Добавьте другие чекбоксы для фильтрации */}
                                     <div className={styles.filterHeader}>
                                         <p>Фильтр</p>
-                                        <button>Cбросить все</button>
+                                        <button onClick={handleResetFilters}>Cбросить все</button>
                                     </div>
                                     <div className={styles.checkboxFilter}>
-                                        <label>
-                                            <input type="checkbox" />
-                                            Фильтр 1
-                                        </label>
-                                        {/* Другие чекбоксы */}
+                                        {categoryList.map((category) => (
+                                            <div key={category.key}>
+                                                <label>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={categories[category.key]}
+                                                        onChange={() => handleCheckboxChange(category.key)}
+                                                    />
+                                                    {category.label}
+                                                </label>
+                                            </div>
+                                        ))}
                                     </div>
-                                    <button className={styles.applyFilterBtn} onClick={handleApplyFilter} disabled={!isFilterApplied}>
+                                    <button className={styles.applyFilterBtn} onClick={handleApplyFilter} disabled={false}>
                                         Применить
                                     </button>
                                 </div>
