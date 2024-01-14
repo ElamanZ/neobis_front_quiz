@@ -337,7 +337,6 @@ function ArticlesPage(props) {
                     onChange={handlePageChange}
                     variant="outlined"
                     shape="rounded"
-
                 />
             </Stack>
         </div>
