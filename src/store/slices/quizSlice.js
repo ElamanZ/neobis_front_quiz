@@ -1,14 +1,21 @@
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const quizSlice = createSlice({
     name: 'quiz',
-    initialState: [],
+    initialState: {
+        correctAnswers: 0,
+    },
     reducers: {
-        setQuiz: (state, action) => {
-            return action.payload;
+        incrementCorrectAnswers: (state) => {
+            state.correctAnswers += 1;
+        },
+        resetCorrectAnswers: (state) => {
+            state.correctAnswers = 0;
         },
     },
 });
 
-export const { setQuiz } = quizSlice.actions;
+export const { incrementCorrectAnswers, resetCorrectAnswers } = quizSlice.actions;
+
 export default quizSlice.reducer;

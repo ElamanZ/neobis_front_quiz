@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styles from '../pages/styles.module.scss';
 import BackBtn from "../components/backBtn.jsx";
 import {useNavigate} from "react-router-dom";
-
-const questionsData = [
+import {useDispatch, useSelector} from "react-redux";
+import { incrementCorrectAnswers } from '../store/slices/quizSlice.js';
+export const questionsData = [
     {
         id: 1,
         questionText: 'Какое событие считается началом Французской революции?',
@@ -54,31 +55,32 @@ const questionsData = [
             { id: 'answer4', text: '1983', isCorrect: false },
         ],
     },
-    // Добавьте еще вопросы по аналогии
+
 ];
 
 function QuizTest(props) {
     const [clickedAnswers, setClickedAnswers] = useState({});
-    const [correctAnswers, setCorrectAnswers] = useState(0);
     const [canClickNext, setCanClickNext] = useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const correctAnswers = useSelector((state) => state.quiz.correctAnswers);
 
     const handleAnswerClick = (answerId, isCorrect) => {
         if (!canClickNext) {
             setClickedAnswers((prev) => ({ ...prev, [answerId]: true }));
 
             if (isCorrect) {
-                setCorrectAnswers((prev) => prev + 1);
+                dispatch(incrementCorrectAnswers());
             }
+
             setCanClickNext(true);
         }
     };
 
     const handleNextQuestionClick = () => {
         if (currentQuestionIndex === questionsData.length - 1) {
-
             navigate('/finish-test');
         } else {
             setClickedAnswers({});
@@ -128,3 +130,4 @@ function QuizTest(props) {
 }
 
 export default QuizTest;
+

@@ -3,12 +3,12 @@ import styles from '../pages/styles.module.scss';
 import salut from '../assets/images/salut.gif';
 import confeti from '../assets/images/confetti.gif';
 import { useNavigate } from 'react-router-dom';
-
+import {useSelector} from "react-redux";
+import { questionsData } from '../pages/QuizTest.jsx';
 function FinishTestPage(props) {
+
     const navigate = useNavigate();
-
-    // Получаем результаты из пропсов
-
+    const correctAnswers = useSelector((state) => state.quiz.correctAnswers);
 
     return (
         <div className="container">
@@ -24,7 +24,7 @@ function FinishTestPage(props) {
 
                 <p className={styles.finishTest__text}>Вы ответили правильно на</p>
                 <p className={styles.finishTest__text} style={{ color: '#4AA829', marginBottom: '70px' }}>
-                    {`${1} вопросов из ${2}`}
+                    {`Вы ответили правильно на ${correctAnswers} вопросов из ${questionsData.length}`}
                 </p>
                 <p className={styles.finishTest__lastText}>
                     У вас всегда есть возможность пройти квиз заново, чтобы еще раз проверить свои знания!
