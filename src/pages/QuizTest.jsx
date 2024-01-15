@@ -3,7 +3,7 @@ import styles from '../pages/styles.module.scss';
 import BackBtn from "../components/backBtn.jsx";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import { incrementCorrectAnswers } from '../store/slices/quizSlice.js';
+import { incrementCorrectAnswers } from '../store/slices/quizTestSlice.js';
 export const questionsData = [
     {
         id: 1,
@@ -65,7 +65,7 @@ function QuizTest(props) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const correctAnswers = useSelector((state) => state.quiz.correctAnswers);
+    const correctAnswers = useSelector((state) => state.quizTest.correctAnswers);
 
     const handleAnswerClick = (answerId, isCorrect) => {
         if (!canClickNext) {

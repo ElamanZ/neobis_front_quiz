@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import BackBtn from "./backBtn.jsx";
 import styles from '../pages/styles.module.scss'
 import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 function ArticleResult(props) {
     const { articleId} = useParams();
 

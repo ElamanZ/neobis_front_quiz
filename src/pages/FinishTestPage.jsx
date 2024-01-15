@@ -8,7 +8,7 @@ import { questionsData } from '../pages/QuizTest.jsx';
 function FinishTestPage(props) {
 
     const navigate = useNavigate();
-    const correctAnswers = useSelector((state) => state.quiz.correctAnswers);
+    const correctAnswers = useSelector((state) => state.quizTest.correctAnswers);
 
     return (
         <div className="container">
