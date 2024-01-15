@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./styles.module.scss";
 import arrow_left from "../assets/images/arrow_left_icon.svg";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,8 @@ import articlesIcon8 from '../assets/images/articles8.svg';
 
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import {useDispatch, useSelector} from "react-redux";
+import {getArticles} from "../store/slices/articlesSlice.js";
 
 function ArticlesPage(props) {
     const navigate = useNavigate();
@@ -67,190 +69,190 @@ function ArticlesPage(props) {
         console.log('Selected categories:', selectedCategories);
     };
 
-    const articlesCardsData = [
-        {
-            id: 1,
-            title: 'Жизнь и правление Наполеона Бонапарта',
-            image: articlesIcon1,
-            category: 'История',
-            backgroundColor: '#FFE0A3',
-        },
-        {
-            id: 2,
-            title: 'Философия Аристотеля',
-            image: articlesIcon2,
-            category: 'Философия',
-            backgroundColor: '#CCFFF6',
-        },
-        {
-            id: 3,
-            title: 'Почему Чехов не так прост?',
-            image: articlesIcon3,
-            category: 'Литература',
-            backgroundColor: '#FFCCFD',
-        },
-        {
-            id: 4,
-            title: 'Почему вы неправильно поняли «Мастера и Маргариту»?',
-            image: articlesIcon4,
-            category: 'Литература',
-            backgroundColor: '#ADD3FF',
-        },
-        {
-            id: 5,
-            title: 'Тайны психики: психология глазами эксперта',
-            image: articlesIcon5,
-            category: 'Психология',
-            backgroundColor: '#DAB5FF',
-        },
-        {
-            id: 6,
-            title: 'Искусство и его влияние на современное общество',
-            image: articlesIcon6,
-            category: 'Искусство',
-            backgroundColor: '#FFD8A3',
-        },
-        {
-            id: 7,
-            title: 'Музыкальные течения: от классики до современности',
-            image: articlesIcon7,
-            category: 'Музыка',
-            backgroundColor: '#CCFFD6',
-        },
-        {
-            id: 8,
-            title: 'История кинематографа: от немого до современности',
-            image: articlesIcon8,
-            category: 'Кино',
-            backgroundColor: '#FFCCCB',
-        },
-        {
-            id: 9,
-            title: 'Путешествие сквозь века: история древнего мира',
-            image: articlesIcon2,
-            category: 'История',
-            backgroundColor: '#FFE0A3',
-        },
-        {
-            id: 10,
-            title: 'Мудрость взгляда: философские истины в современном мире',
-            image: articlesIcon2,
-            category: 'Философия',
-            backgroundColor: '#CCFFF6',
-        },
-        {
-            id: 11,
-            title: 'Чехов: мастер краткости и глубины характеров',
-            image: articlesIcon2,
-            category: 'Литература',
-            backgroundColor: '#FFCCFD',
-        },
-        {
-            id: 12,
-            title: 'Магия слова: тайны литературных произведений',
-            image: articlesIcon2,
-            category: 'Литература',
-            backgroundColor: '#ADD3FF',
-        },
-        {
-            id: 13,
-            title: 'Глаза души: открываем тайны психологии поведения',
-            image: articlesIcon2,
-            category: 'Психология',
-            backgroundColor: '#DAB5FF',
-        },
-        {
-            id: 14,
-            title: 'Эстетика искусства: вдохновение и трансформация',
-            image: articlesIcon2,
-            category: 'Искусство',
-            backgroundColor: '#FFD8A3',
-        },
-        {
-            id: 15,
-            title: 'Симфония звуков: история развития музыкальных жанров',
-            image: articlesIcon2,
-            category: 'Музыка',
-            backgroundColor: '#CCFFD6',
-        },
-        {
-            id: 16,
-            title: 'Завораживающий мир кинематографа: от немого кинематографа до современности',
-            image: articlesIcon2,
-            category: 'Кино',
-            backgroundColor: '#FFCCCB',
-        },
-        {
-            id: 17,
-            title: 'Расцвет и упадок империи: история Рима',
-            image: articlesIcon1,
-            category: 'История',
-            backgroundColor: '#FFE0A3',
-        },
-        {
-            id: 18,
-            title: 'Платон и его учение о государстве',
-            image: articlesIcon2,
-            category: 'Философия',
-            backgroundColor: '#CCFFF6',
-        },
-        {
-            id: 19,
-            title: 'Шекспир и его влияние на мировую литературу',
-            image: articlesIcon3,
-            category: 'Литература',
-            backgroundColor: '#FFCCFD',
-        },
-        {
-            id: 20,
-            title: 'Исследование человеческого разума: психология сновидений',
-            image: articlesIcon4,
-            category: 'Психология',
-            backgroundColor: '#ADD3FF',
-        },
-        {
-            id: 21,
-            title: 'Ренессанс в живописи: великие художники и их произведения',
-            image: articlesIcon5,
-            category: 'Искусство',
-            backgroundColor: '#DAB5FF',
-        },
-        {
-            id: 22,
-            title: 'Эволюция музыкальных инструментов: от древности до современности',
-            image: articlesIcon6,
-            category: 'Музыка',
-            backgroundColor: '#FFD8A3',
-        },
-        {
-            id: 23,
-            title: 'Секреты Голливуда: звезды и кинематографические хиты',
-            image: articlesIcon7,
-            category: 'Кино',
-            backgroundColor: '#CCFFD6',
-        },
-        {
-            id: 24,
-            title: 'Путеводитель по древним цивилизациям: от Египта до Месопотамии',
-            image: articlesIcon8,
-            category: 'История',
-            backgroundColor: '#FFCCCB',
-        },
-        {
-            id: 25,
-            title: 'Философия средневековья: борьба идей в темные века',
-            image: articlesIcon1,
-            category: 'Философия',
-            backgroundColor: '#FFE0A3',
-        },
-        {
-            id: 26,
-            title: 'Любовь и страсть в литературе: вечные темы и мотивы',
-            image: articlesIcon2,
-            category: 'Литература',
-            backgroundColor: '#CCFFF6',
-        }
-    ];
+    // const articlesCardsData = [
+    //     {
+    //         id: 1,
+    //         title: 'Жизнь и правление Наполеона Бонапарта',
+    //         image: articlesIcon1,
+    //         category: 'История',
+    //         backgroundColor: '#FFE0A3',
+    //     },
+    //     {
+    //         id: 2,
+    //         title: 'Философия Аристотеля',
+    //         image: articlesIcon2,
+    //         category: 'Философия',
+    //         backgroundColor: '#CCFFF6',
+    //     },
+    //     {
+    //         id: 3,
+    //         title: 'Почему Чехов не так прост?',
+    //         image: articlesIcon3,
+    //         category: 'Литература',
+    //         backgroundColor: '#FFCCFD',
+    //     },
+    //     {
+    //         id: 4,
+    //         title: 'Почему вы неправильно поняли «Мастера и Маргариту»?',
+    //         image: articlesIcon4,
+    //         category: 'Литература',
+    //         backgroundColor: '#ADD3FF',
+    //     },
+    //     {
+    //         id: 5,
+    //         title: 'Тайны психики: психология глазами эксперта',
+    //         image: articlesIcon5,
+    //         category: 'Психология',
+    //         backgroundColor: '#DAB5FF',
+    //     },
+    //     {
+    //         id: 6,
+    //         title: 'Искусство и его влияние на современное общество',
+    //         image: articlesIcon6,
+    //         category: 'Искусство',
+    //         backgroundColor: '#FFD8A3',
+    //     },
+    //     {
+    //         id: 7,
+    //         title: 'Музыкальные течения: от классики до современности',
+    //         image: articlesIcon7,
+    //         category: 'Музыка',
+    //         backgroundColor: '#CCFFD6',
+    //     },
+    //     {
+    //         id: 8,
+    //         title: 'История кинематографа: от немого до современности',
+    //         image: articlesIcon8,
+    //         category: 'Кино',
+    //         backgroundColor: '#FFCCCB',
+    //     },
+    //     {
+    //         id: 9,
+    //         title: 'Путешествие сквозь века: история древнего мира',
+    //         image: articlesIcon2,
+    //         category: 'История',
+    //         backgroundColor: '#FFE0A3',
+    //     },
+    //     {
+    //         id: 10,
+    //         title: 'Мудрость взгляда: философские истины в современном мире',
+    //         image: articlesIcon2,
+    //         category: 'Философия',
+    //         backgroundColor: '#CCFFF6',
+    //     },
+    //     {
+    //         id: 11,
+    //         title: 'Чехов: мастер краткости и глубины характеров',
+    //         image: articlesIcon2,
+    //         category: 'Литература',
+    //         backgroundColor: '#FFCCFD',
+    //     },
+    //     {
+    //         id: 12,
+    //         title: 'Магия слова: тайны литературных произведений',
+    //         image: articlesIcon2,
+    //         category: 'Литература',
+    //         backgroundColor: '#ADD3FF',
+    //     },
+    //     {
+    //         id: 13,
+    //         title: 'Глаза души: открываем тайны психологии поведения',
+    //         image: articlesIcon2,
+    //         category: 'Психология',
+    //         backgroundColor: '#DAB5FF',
+    //     },
+    //     {
+    //         id: 14,
+    //         title: 'Эстетика искусства: вдохновение и трансформация',
+    //         image: articlesIcon2,
+    //         category: 'Искусство',
+    //         backgroundColor: '#FFD8A3',
+    //     },
+    //     {
+    //         id: 15,
+    //         title: 'Симфония звуков: история развития музыкальных жанров',
+    //         image: articlesIcon2,
+    //         category: 'Музыка',
+    //         backgroundColor: '#CCFFD6',
+    //     },
+    //     {
+    //         id: 16,
+    //         title: 'Завораживающий мир кинематографа: от немого кинематографа до современности',
+    //         image: articlesIcon2,
+    //         category: 'Кино',
+    //         backgroundColor: '#FFCCCB',
+    //     },
+    //     {
+    //         id: 17,
+    //         title: 'Расцвет и упадок империи: история Рима',
+    //         image: articlesIcon1,
+    //         category: 'История',
+    //         backgroundColor: '#FFE0A3',
+    //     },
+    //     {
+    //         id: 18,
+    //         title: 'Платон и его учение о государстве',
+    //         image: articlesIcon2,
+    //         category: 'Философия',
+    //         backgroundColor: '#CCFFF6',
+    //     },
+    //     {
+    //         id: 19,
+    //         title: 'Шекспир и его влияние на мировую литературу',
+    //         image: articlesIcon3,
+    //         category: 'Литература',
+    //         backgroundColor: '#FFCCFD',
+    //     },
+    //     {
+    //         id: 20,
+    //         title: 'Исследование человеческого разума: психология сновидений',
+    //         image: articlesIcon4,
+    //         category: 'Психология',
+    //         backgroundColor: '#ADD3FF',
+    //     },
+    //     {
+    //         id: 21,
+    //         title: 'Ренессанс в живописи: великие художники и их произведения',
+    //         image: articlesIcon5,
+    //         category: 'Искусство',
+    //         backgroundColor: '#DAB5FF',
+    //     },
+    //     {
+    //         id: 22,
+    //         title: 'Эволюция музыкальных инструментов: от древности до современности',
+    //         image: articlesIcon6,
+    //         category: 'Музыка',
+    //         backgroundColor: '#FFD8A3',
+    //     },
+    //     {
+    //         id: 23,
+    //         title: 'Секреты Голливуда: звезды и кинематографические хиты',
+    //         image: articlesIcon7,
+    //         category: 'Кино',
+    //         backgroundColor: '#CCFFD6',
+    //     },
+    //     {
+    //         id: 24,
+    //         title: 'Путеводитель по древним цивилизациям: от Египта до Месопотамии',
+    //         image: articlesIcon8,
+    //         category: 'История',
+    //         backgroundColor: '#FFCCCB',
+    //     },
+    //     {
+    //         id: 25,
+    //         title: 'Философия средневековья: борьба идей в темные века',
+    //         image: articlesIcon1,
+    //         category: 'Философия',
+    //         backgroundColor: '#FFE0A3',
+    //     },
+    //     {
+    //         id: 26,
+    //         title: 'Любовь и страсть в литературе: вечные темы и мотивы',
+    //         image: articlesIcon2,
+    //         category: 'Литература',
+    //         backgroundColor: '#CCFFF6',
+    //     }
+    // ];
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -258,13 +260,25 @@ function ArticlesPage(props) {
         setCurrentPage(value);
     };
 
-    const pageSize = 12;
+    const pageSize = 8;
 
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
 
-    const currentArticlesData = articlesCardsData.slice(startIndex, endIndex);
 
+
+
+    const dispatch = useDispatch();
+    const articlesDataResponse = useSelector((state) => state.articles.data);
+    const articlesCardsData = articlesDataResponse.results || [];
+
+    useEffect(() => {
+        dispatch(getArticles());
+    }, []);
+
+    console.log(articlesCardsData);
+
+    const currentArticlesData = articlesCardsData.slice(startIndex, endIndex);
     return (
         <div className='container'>
             <header className={styles.articles__header}>
