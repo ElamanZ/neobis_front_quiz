@@ -21,7 +21,7 @@ function Routers(props) {
             <Route path="/quiz-test" element={<QuizTest text='/main'/>} />
             <Route path="/finish-test" element={<FinishTestPage/>} />
             <Route path="/articles-not-found" element={<ArticlesNotfound/>} />
-            <Route path="/article-result" element={<ArticleResult/>} />
+            <Route path="/article/:articleId" element={<ArticleResult/>} />
         </Routes>
     );
 }

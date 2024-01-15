@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./styles.module.scss";
 import arrow_left from "../assets/images/arrow_left_icon.svg";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import searchIcon from '../assets/images/searchIcon.svg';
 import filterIcon from '../assets/images/filterIcon.svg';
 import articlesIcon1 from '../assets/images/articles1.svg';
@@ -279,6 +279,8 @@ function ArticlesPage(props) {
     console.log(articlesCardsData);
 
     const currentArticlesData = articlesCardsData.slice(startIndex, endIndex);
+
+    console.log('проверка', currentArticlesData[5-1])
     return (
         <div className='container'>
             <header className={styles.articles__header}>
@@ -331,19 +333,34 @@ function ArticlesPage(props) {
                 </div>
             </header>
 
+            {/*<div className={styles.articles__cards}>*/}
+            {/*    {currentArticlesData.map((articlesData) => (*/}
+            {/*        <div className={styles.articles__card} style={{ backgroundColor: articlesData.backgroundColor }}>*/}
+            {/*            <p className={styles.articles__title}>{articlesData.title}</p>*/}
+            {/*            <img src={articlesData.image} alt="articlesIcon" />*/}
+            {/*            <span className={styles.articles__category}>*/}
+            {/*            <p>#{articlesData.category}</p>*/}
+            {/*            <div className={styles.articles__ellipse}></div>*/}
+            {/*            <p>{articlesData.study_time}</p>*/}
+            {/*        </span>*/}
+            {/*        </div>*/}
+            {/*    ))}*/}
+            {/*</div>*/}
+
             <div className={styles.articles__cards}>
                 {currentArticlesData.map((articlesData) => (
-                    <div className={styles.articles__card} style={{ backgroundColor: articlesData.backgroundColor }}>
+                    <Link to={`/article/${articlesData.id}`} key={articlesData.id} className={styles.articles__card} style={{ backgroundColor: articlesData.backgroundColor }}>
                         <p className={styles.articles__title}>{articlesData.title}</p>
                         <img src={articlesData.image} alt="articlesIcon" />
                         <span className={styles.articles__category}>
-                        <p>#{articlesData.category}</p>
-                        <div className={styles.articles__ellipse}></div>
-                        <p>15 минут</p>
-                    </span>
-                    </div>
+                            <p>#{articlesData.category}</p>
+                            <div className={styles.articles__ellipse}></div>
+                            <p>{articlesData.study_time} минут</p>
+                        </span>
+                    </Link>
                 ))}
             </div>
+
             <Stack spacing={2} sx={{marginTop: '40px', marginBottom: '40px', display: 'flex', alignItems: 'center'}}>
                 <Pagination
                     count={Math.ceil(articlesCardsData.length / pageSize)}

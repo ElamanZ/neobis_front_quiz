@@ -1,19 +1,33 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import BackBtn from "./backBtn.jsx";
 import styles from '../pages/styles.module.scss'
+import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 function ArticleResult(props) {
+    const { articleId} = useParams();
+
+
+    console.log('articleId', articleId)
+
+
+
+    const articlesDataResponse = useSelector((state) => state.articles.data);
+    const articlesCardsData = articlesDataResponse.results || [];
+
+    const articlesCardsResultData = articlesCardsData[articleId-1]
+
     return (
         <div className='container'>
             <BackBtn path={"/articles"}/>
             <div className={styles.articleResult}>
-                <p className={styles.articleResult__title}>Жизнь и правление Наполеона Бонапарта</p>
+                <p className={styles.articleResult__title}>{articlesCardsResultData.title}</p>
                 <div className={styles.articleResult__category}>
-                    <span>#История</span>
+                    <span>#{articlesCardsResultData.category}</span>
                     <div className={styles.articleResult__ellipse}></div>
-                    <span>15 минут</span>
+                    <span>{articlesCardsResultData.study_time} минут</span>
                 </div>
                 <p className={styles.articleResult__text}>
-                    Наполеон I Бонапарт - французский полководец и государственный деятель. Император Франции (1804-1814 и в марте - июне 1815). В 1799 году совершил государственный переворот и стал первым консулом; в 1804 году был провозглашен императором. Значительно расширил территорию империи, поставил в зависимость от Франции большинство стран Западной и Центральной Европы. В 1814 году отрекся от престола. Вновь занял престол в 1815 году. После поражения при Ватерлоо (июнь 1815) был сослан на остров Святой Елены. Наполеон Буонапарте (Бонапарт) родился 15 августа 1769 года в Аяччо, в семье адвоката Карло Буонапарте, происходившего из мелкопоместного корсиканского дворянства, и Летиции Рамолино, принадлежавшей к старинному патрицианскому роду. Карло Буонапарте, у которого из двенадцати детей выжило восемь, в награду за лояльность к Франции получил возможность отдать старших сыновей, Жозефа и Наполеона, в 1779 году в колледж. Наполеон через два месяца перешел в военную школу в Бриене. В 1784 году, получив звание кадета, он продолжил обучение в военной школе в Париже. Через год Наполеон был произведен в лейтенанты артиллерии и отправлен в престижный полк ла Фер. Бонапарт служил в Валансе и Оксонне. Его работоспособность была феноменальной: на сон ему требовалось не более 4-5 часов в сутки. Он много читал, продолжал заниматься самообразованием. Во время Великой французской революции (1789-1794) Наполеон встал на сторону жирондистов.
+                    {articlesCardsResultData.content}
                 </p>
             </div>
         </div>
