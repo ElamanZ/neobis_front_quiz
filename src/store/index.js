@@ -1,8 +1,8 @@
 // В вашем файле, где настраивается store, должны быть добавлены middleware
 import { configureStore } from '@reduxjs/toolkit';
-import articlesReducer from '../store/slices/articlesSlice.js';
-import quizesReducer from '../store/slices/quizesSlice.js';
-import quizTestReducer from './slices/quizTestSlice.js';
+import articlesReducer from '../store/slices/articlesSlice';
+import quizesReducer from '../store/slices/quizesSlice';
+import quizTestReducer from './slices/quizTestSlice';
 
 const store = configureStore({
     reducer: {
