@@ -16,7 +16,7 @@ import './styles2.css';
 import classNames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
 import {getArticles} from "../store/slices/articlesSlice.js";
-import {getQuizes} from "../store/slices/QuizesSlice.js";
+import {getQuizes} from "../store/slices/quizesSlice.js";
 
 
 function MainPage(props) {
