@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import { useDispatch, useSelector } from "react-redux";
 import { getArticles } from "../store/slices/articlesSlice.js";
 import { getArticlesCategory } from "../store/slices/categorySlice.js";
-import {searchArticles} from "../store/slices/articleSearchSlice.js";
+import { searchArticles } from "../store/slices/articleSearchSlice.js";
 import ArticlesNotfound from "../components/articlesNotfound.jsx";
 
 function ArticlesPage(props) {
@@ -59,15 +59,11 @@ function ArticlesPage(props) {
     };
 
     const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 8;
 
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
     };
-
-    const pageSize = 8;
-
-    const startIndex = (currentPage - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
 
     const dispatch = useDispatch();
     const articlesDataResponse = useSelector((state) => state.articles.data);
@@ -75,7 +71,6 @@ function ArticlesPage(props) {
 
     const articlesCategoryResponse = useSelector((state) => state.articlesCategory.data);
     const categoryList = articlesCategoryResponse.results || [];
-
 
     const searchArticlesResponse = useSelector((state) => state.searchArticles.data);
     const searchArticlesList = searchArticlesResponse.results || [];
@@ -91,17 +86,12 @@ function ArticlesPage(props) {
         }
 
         dispatch(searchArticles(searchValue));
-    }
-
-    const currentArticlesData = articlesCardsData.slice(startIndex, endIndex);
-
-    const doesArticleMatchCategories = (article) => {
-        const selectedCategories = Object.keys(categories).filter(categoryKey => categories[categoryKey]);
-
-        return selectedCategories.length === 0 || selectedCategories.includes(article.category.toString());
     };
 
-    const filteredArticles = currentArticlesData.filter(article => doesArticleMatchCategories(article));
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const displayedArticles = (searchArticlesList.length > 0 ? searchArticlesList : articlesCardsData).slice(startIndex, endIndex);
 
     return (
         <div className='container'>
@@ -114,13 +104,13 @@ function ArticlesPage(props) {
                 </div>
                 <div className={styles.articles__searchContent}>
                     <form className={styles.search} onSubmit={(e) => {
-                        e.preventDefault()
-                        searchArticle()
+                        e.preventDefault();
+                        searchArticle();
                     }}>
                         <button type="submit">
                             <img src={searchIcon} alt="search" />
                         </button>
-                        <input type="text" placeholder="Поиск статей" value={searchValue} onChange={handleSearchInputChange}/>
+                        <input type="text" placeholder="Поиск статей" value={searchValue} onChange={handleSearchInputChange} />
                     </form>
                     <div className={styles.articles__filterContent}>
                         <div className={styles.filterWrapper}>
@@ -158,41 +148,21 @@ function ArticlesPage(props) {
             </header>
 
             <div className={styles.articles__cards}>
-                {console.log('searchValue:', searchValue)}
-                {console.log('searchArticlesList:', searchArticlesList)}
-
                 {(!searchArticlesList.length && searchValue.trim() !== '') ? (
-                    // Отображение компонента ArticlesNotfound, если нет результатов поиска и инпут не пустой
                     <div>
-                        <ArticlesNotfound/>
+                        <ArticlesNotfound />
                     </div>
-                ) : searchArticlesList.length > 0 ? (
-                    // Отображение карточек статей, если есть результаты поиска
-                    searchArticlesList.map((article) => (
-                        <Link to={`/article/${article.id}`} key={article.id} className={styles.articles__card} style={{ backgroundColor: article.backgroundColor }}>
-                            <p className={styles.articles__title}>{article.title}</p>
-                            <img src={article.image} alt="articlesIcon" />
-                            <span className={styles.articles__category}>
-                    <p>#{article.category}</p>
-                    <div className={styles.articles__ellipse}></div>
-                    <p>{article.study_time} минут</p>
-                </span>
-                        </Link>
-                    ))
-                ) : (
-                    // Отображение карточек статей из articlesCardsData, если инпут пустой
-                    articlesCardsData.map((article) => (
-                        <Link to={`/article/${article.id}`} key={article.id} className={styles.articles__card} style={{ backgroundColor: article.backgroundColor }}>
-                            <p className={styles.articles__title}>{article.title}</p>
-                            <img src={article.image} alt="articlesIcon" />
-                            <span className={styles.articles__category}>
-                    <p>#{article.category}</p>
-                    <div className={styles.articles__ellipse}></div>
-                    <p>{article.study_time} минут</p>
-                </span>
-                        </Link>
-                    ))
-                )}
+                ) : displayedArticles.map((article) => (
+                    <Link to={`/article/${article.id}`} key={article.id} className={styles.articles__card} style={{ backgroundColor: article.backgroundColor }}>
+                        <p className={styles.articles__title}>{article.title}</p>
+                        <img src={article.image} alt="articlesIcon" />
+                        <span className={styles.articles__category}>
+                            <p>#{article.category}</p>
+                            <div className={styles.articles__ellipse}></div>
+                            <p>{article.study_time} минут</p>
+                        </span>
+                    </Link>
+                ))}
             </div>
 
             <Stack spacing={2} sx={{ marginTop: '40px', marginBottom: '40px', display: 'flex', alignItems: 'center' }}>
@@ -200,7 +170,7 @@ function ArticlesPage(props) {
                     null
                 ) : (
                     <Pagination
-                        count={Math.ceil(articlesCardsData.length / pageSize)}
+                        count={Math.ceil((searchArticlesList.length > 0 ? searchArticlesList : articlesCardsData).length / pageSize)}
                         page={currentPage}
                         onChange={handlePageChange}
                         variant="outlined"
@@ -213,5 +183,3 @@ function ArticlesPage(props) {
 }
 
 export default ArticlesPage;
-
-
