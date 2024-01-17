@@ -39,3 +39,5 @@ const quizesSlice = createSlice({
 });
 
 export default quizesSlice.reducer;
+
+
