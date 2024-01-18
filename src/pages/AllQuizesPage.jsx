@@ -7,10 +7,6 @@ import { EffectCoverflow, Pagination } from 'swiper/modules';
 import { useSelector } from 'react-redux';
 
 import styles from './styles.module.scss';
-import card_quiz_icon1 from '../assets/images/card_quiz_icon111.svg';
-import card_quiz_icon2 from '../assets/images/card_quiz_icon222.svg';
-import card_quiz_icon3 from '../assets/images/card_quiz_icon333.svg';
-import card_quiz_icon4 from '../assets/images/card_quiz_icon444.svg';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import './styles.css';
@@ -26,7 +22,15 @@ function AllQuizesPage(props) {
     const handleQuizClick = (quizId) => {
         navigate(`/quiz/${quizId}`);
     };
-
+    const categoryMapping = {
+        1: "Литература",
+        2: "Кино",
+        3: "Искусство",
+        4: "Психология",
+        6: "Музыка",
+        7: "Философия",
+        8: "История",
+    };
     return (
         <>
             <div className="container">
@@ -66,7 +70,8 @@ function AllQuizesPage(props) {
                                 style={{ backgroundColor: quizData.backgroundColor, boxShadow: quizData.boxShadow }}
                             >
                                 <img src={quizData.image} alt="allQuiz_card_icon1" />
-                                <p>{quizData.category}</p>
+                                <p>{categoryMapping[quizData.category]}</p>
+
                                 <span>{quizData.num_questions} вопросов</span>
                             </div>
                         </SwiperSlide>

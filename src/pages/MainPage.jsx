@@ -21,67 +21,7 @@ import {getQuizes} from "../store/slices/quizesSlice.js";
 
 function MainPage(props) {
     const navigate = useNavigate();
-    // const articleCardsData = [
-    //     {
-    //         id: 1,
-    //         title: 'Жизнь и правление Наполеона Бонапарта',
-    //         image: card_icon1,
-    //         category: 'История',
-    //         backgroundColor: '#FFE0A3'
-    //     },
-    //     {
-    //         id: 2,
-    //         title: 'Философия Аристотеля',
-    //         image: card_icon2,
-    //         category: 'Философия',
-    //         backgroundColor: '#CCFFF6'
-    //     },
-    //     {
-    //         id: 3,
-    //         title: 'Почему Чехов не так прост?',
-    //         image: card_icon3,
-    //         category: 'Литература',
-    //         backgroundColor: '#FFCCFD'
-    //     },
-    //     {
-    //         id: 4,
-    //         title: 'Почему вы неправильно поняли «Мастера и Маргариту»?',
-    //         image: card_icon4,
-    //         category: 'Литература',
-    //         backgroundColor: '#ADD3FF'
-    //     }
-    // ];
 
-    // const quizCardsData = [
-    //     {
-    //         id: 1,
-    //         title: 'История',
-    //         image: card_quiz_icon1,
-    //         text: '10 вопросов',
-    //         backgroundColor: '#FFA9A3'
-    //     },
-    //     {
-    //         id: 2,
-    //         title: 'История',
-    //         image: card_quiz_icon2,
-    //         text: '10 вопросов',
-    //         backgroundColor: '#ADD3FF'
-    //     },
-    //     {
-    //         id: 3,
-    //         title: 'Философия',
-    //         image: card_quiz_icon3,
-    //         text: '10 вопросов',
-    //         backgroundColor: '#CBF89E'
-    //     },
-    //     {
-    //         id: 4,
-    //         title: 'Психология',
-    //         image: card_quiz_icon4,
-    //         text: '20 вопросов',
-    //         backgroundColor: '#DAB5FF'
-    //     }
-    // ];
     const dispatch = useDispatch()
     const articlesDataResponse = useSelector((state) => state.articles.data);
     const quizesDataResponse = useSelector((state) => state.quizes.data);
@@ -99,6 +39,16 @@ function MainPage(props) {
 
     const handleQuizClick = (articleId) => {
         navigate(`/quiz/${articleId}`);
+    };
+
+    const categoryMapping = {
+        1: "Литература",
+        2: "Кино",
+        3: "Искусство",
+        4: "Психология",
+        6: "Музыка",
+        7: "Философия",
+        8: "История",
     };
 
     const titleClass = (classNames(styles.title, styles.titleMargin))
@@ -121,7 +71,7 @@ function MainPage(props) {
                             <div className={styles.main__articleCard} style={{ backgroundColor: articleData.backgroundColor }}>
                                 <p>{articleData.title}</p>
                                 <img src={articleData.image} alt={`card_icon${articleData.id}`} />
-                                <span>#{articleData.category}</span>
+                                <span>#{categoryMapping[articleData.category]}</span>
                             </div>
                         </SwiperSlide>
                     ))}
@@ -139,7 +89,7 @@ function MainPage(props) {
                 {quizCardsData.slice(0,5).map((quizData) => (
                     <div onClick={() => handleQuizClick(quizData.id)} className={styles.main__quiz_card} key={quizData.id} style={{ backgroundColor: quizData.backgroundColor }}>
                         <img src={quizData.image} alt="card_quiz_icon1"/>
-                        <p>{quizData.category}</p>
+                        <p>{categoryMapping[quizData.category]}</p>
                         <span>{quizData.num_questions} вопросов</span>
                     </div>
                 ))}

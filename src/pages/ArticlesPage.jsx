@@ -22,41 +22,67 @@ function ArticlesPage(props) {
     };
 
     const initialCategories = {
-        history: false,
-        literature: false,
-        philosophy: false,
-        psychology: false,
-        art: false,
-        music: false,
-        cinema: false,
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        6: false,
+        7: false,
+        8: false,
+    };
+
+    const categoryMapping = {
+        1: "Литература",
+        2: "Кино",
+        3: "Искусство",
+        4: "Психология",
+        6: "Музыка",
+        7: "Философия",
+        8: "История",
     };
 
     const [categories, setCategories] = useState(initialCategories);
+    const [filteredArticles, setFilteredArticles] = useState([]);
 
     const handleSearchInputChange = (event) => {
         setSearchValue(event.target.value);
     };
 
-    const handleCheckboxChange = (categoryKey) => {
-        setCategories({ ...categories, [categoryKey]: !categories[categoryKey] });
+    const handleCheckboxChange = (categoryId) => {
+        setCategories({ ...categories, [categoryId]: !categories[categoryId] });
     };
 
     const handleResetFilters = () => {
         setCategories(initialCategories);
     };
+    const [isFilterApplied, setIsFilterApplied] = useState(false);
+
 
     const handleApplyFilter = () => {
         setIsFilterOpen(false);
+
         const selectedCategories = Object.keys(categories).filter(
-            (category) => categories[category]
+            (categoryId) => categories[categoryId]
         );
+
+        console.log('Выбранные категории:', selectedCategories);
+
         if (selectedCategories.length > 0) {
-            console.log('Selected categories:', selectedCategories);
+            // Используем выбранные категории для фильтрации
+            const filteredArticles = articlesCardsData.filter((article) =>
+                selectedCategories.includes(article.category.toString())
+            );
+
+            setFilteredArticles(filteredArticles);
+            console.log('Отфильтрованные статьи:', filteredArticles);
+
+            setIsFilterApplied(true); // Устанавливаем флаг, что фильтр был применен
         } else {
-            return alert('Выберите хотя бы одну категорию!');
+            alert('Выберите хотя бы одну категорию!');
         }
-        console.log('Selected categories:', selectedCategories);
     };
+
+    const isApplyButtonDisabled = Object.values(categories).every(value => !value);
 
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 8;
@@ -91,8 +117,9 @@ function ArticlesPage(props) {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
 
-    const displayedArticles = (searchArticlesList.length > 0 ? searchArticlesList : articlesCardsData).slice(startIndex, endIndex);
-
+    const displayedArticles = isFilterApplied
+        ? filteredArticles.slice(startIndex, endIndex)
+        : (searchArticlesList.length > 0 ? searchArticlesList : articlesCardsData).slice(startIndex, endIndex);
     return (
         <div className='container'>
             <header className={styles.articles__header}>
@@ -125,19 +152,19 @@ function ArticlesPage(props) {
                                     </div>
                                     <div className={styles.checkboxFilter}>
                                         {categoryList.map((category) => (
-                                            <div key={category.key}>
+                                            <div key={category.id}>
                                                 <label>
                                                     <input
                                                         type="checkbox"
                                                         checked={categories[category.id]}
-                                                        onChange={() => handleCheckboxChange(category.key)}
+                                                        onChange={() => handleCheckboxChange(category.id)}
                                                     />
                                                     {category.name}
                                                 </label>
                                             </div>
                                         ))}
                                     </div>
-                                    <button className={styles.applyFilterBtn} onClick={handleApplyFilter} disabled={false}>
+                                    <button  className={styles.applyFilterBtn} onClick={handleApplyFilter} disabled={isApplyButtonDisabled}>
                                         Применить
                                     </button>
                                 </div>
@@ -157,7 +184,7 @@ function ArticlesPage(props) {
                         <p className={styles.articles__title}>{article.title}</p>
                         <img src={article.image} alt="articlesIcon" />
                         <span className={styles.articles__category}>
-                            <p>#{article.category}</p>
+                            <p>#{categoryMapping[article.category]}</p>
                             <div className={styles.articles__ellipse}></div>
                             <p>{article.study_time} минут</p>
                         </span>
