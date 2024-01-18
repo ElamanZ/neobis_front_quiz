@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from '../pages/styles.module.scss';
 import salut from '../assets/images/salut.gif';
 import confeti from '../assets/images/confetti.gif';
 import { useNavigate } from 'react-router-dom';
-import {useSelector} from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import { questionsData } from '../pages/QuizTest.jsx';
+import { resetCorrectAnswers } from '../store/slices/quizTestSlice';
+
 function FinishTestPage(props) {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();  // Добавлен dispatch
     const correctAnswers = useSelector((state) => state.quizTest.correctAnswers);
+
+    const handleReturnClick = () => {
+        dispatch(resetCorrectAnswers());  // Сбрасываем значение correctAnswers
+        navigate('/all-quizes');
+    };
 
     return (
         <div className="container">
@@ -29,7 +37,7 @@ function FinishTestPage(props) {
                 <p className={styles.finishTest__lastText}>
                     У вас всегда есть возможность пройти квиз заново, чтобы еще раз проверить свои знания!
                 </p>
-                <button onClick={() => navigate('/all-quizes')} className={styles.startBtn_quiz}>
+                <button onClick={handleReturnClick} className={styles.startBtn_quiz}>
                     Вернуться
                 </button>
             </div>

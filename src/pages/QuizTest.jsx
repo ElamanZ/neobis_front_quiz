@@ -130,4 +130,3 @@ function QuizTest(props) {
 }
 
 export default QuizTest;
-
