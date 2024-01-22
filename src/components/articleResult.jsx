@@ -10,6 +10,15 @@ function ArticleResult(props) {
     console.log('articleId', articleId)
 
 
+    const categoryMapping = {
+        1: "Литература",
+        2: "Кино",
+        3: "Искусство",
+        4: "Психология",
+        6: "Музыка",
+        7: "Философия",
+        8: "История",
+    };
 
     const articlesDataResponse = useSelector((state) => state.articles.data);
     const articlesCardsData = articlesDataResponse.results || [];
@@ -22,7 +31,7 @@ function ArticleResult(props) {
             <div className={styles.articleResult}>
                 <p className={styles.articleResult__title}>{articlesCardsResultData.title}</p>
                 <div className={styles.articleResult__category}>
-                    <span>#{articlesCardsResultData.category}</span>
+                    <span>#{categoryMapping[articlesCardsResultData.category]}</span>
                     <div className={styles.articleResult__ellipse}></div>
                     <span>{articlesCardsResultData.study_time} минут</span>
                 </div>
