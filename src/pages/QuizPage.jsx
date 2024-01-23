@@ -30,7 +30,9 @@ function QuizPage(props) {
 
     const quizData = articlesCardsData[quizId-1]
 
-    console.log(quizData)
+    const handleStartQuiz = () => {
+        navigate(`/quiz-test/${quizData.category}`);
+    };
 
 
     return (
@@ -48,7 +50,7 @@ function QuizPage(props) {
                     <p>{quizData.description}</p>
                 </div>
                 <div className={styles.startBtn_quizBlock}>
-                    <button className={styles.startBtn_quiz} onClick={() => navigate('/quiz-test')}>Начать квиз</button>
+                    <button className={styles.startBtn_quiz} onClick={handleStartQuiz}>Начать квиз</button>
                 </div>
             </div>
         </div>

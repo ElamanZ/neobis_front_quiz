@@ -18,8 +18,10 @@ function Routers(props) {
             <Route path="/articles" element={<ArticlesPage/>} />
             <Route path="/all-quizes" element={<AllQuizesPage/>} />
             <Route path="/quiz/:quizId" element={<QuizPage/>} />
-            <Route path="/quiz-test" element={<QuizTest text='/main'/>} />
-            <Route path="/finish-test" element={<FinishTestPage/>} />
+            {/*<Route path="/quiz-test" element={<QuizTest text='/main'/>} />*/}
+            <Route path="/quiz-test/:quizId" element={<QuizTest />} />
+
+            <Route path="/finish-test/:totalQuestions" element={<FinishTestPage />} />
             <Route path="/articles-not-found" element={<ArticlesNotfound/>} />
             <Route path="/article/:articleId" element={<ArticleResult/>} />
         </Routes>

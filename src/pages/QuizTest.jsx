@@ -1,71 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../pages/styles.module.scss';
 import BackBtn from "../components/backBtn.jsx";
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { incrementCorrectAnswers } from '../store/slices/quizTestSlice.js';
-export const questionsData = [
-    {
-        id: 1,
-        questionText: 'Какое событие считается началом Французской революции?',
-        answers: [
-            { id: 'answer1', text: 'Взятие Бастилии', isCorrect: true },
-            { id: 'answer2', text: 'Восстание Бастилии', isCorrect: false },
-            { id: 'answer3', text: 'Созыв Генеральных штатов', isCorrect: false },
-            { id: 'answer4', text: 'Публикация "Прав человека и гражданина"', isCorrect: false },
-        ],
-    },
-    {
-        id: 2,
-        questionText: 'Кто Автор рассказа кавказский пленник',
-        answers: [
-            { id: 'answer1', text: 'Пушкин', isCorrect: false },
-            { id: 'answer2', text: 'Гоголь', isCorrect: false },
-            { id: 'answer3', text: 'Толстой', isCorrect: true },
-            { id: 'answer4', text: 'Тургенев', isCorrect: false },
-        ],
-    },
-    {
-        id: 3,
-        questionText: 'Когда родился Пушкин',
-        answers: [
-            { id: 'answer1', text: '1987', isCorrect: false },
-            { id: 'answer2', text: '1539', isCorrect: false },
-            { id: 'answer3', text: '1845', isCorrect: true },
-            { id: 'answer4', text: '1869', isCorrect: false },
-        ],
-    },
-    {
-        id: 4,
-        questionText: 'Когда родился Эламан',
-        answers: [
-            { id: 'answer1', text: '2001', isCorrect: true },
-            { id: 'answer2', text: '2003', isCorrect: false },
-            { id: 'answer3', text: '1999', isCorrect: false },
-            { id: 'answer4', text: '2007', isCorrect: false },
-        ],
-    },
-    {
-        id: 5,
-        questionText: 'Роналдо',
-        answers: [
-            { id: 'answer1', text: '1985', isCorrect: true },
-            { id: 'answer2', text: '1988', isCorrect: false },
-            { id: 'answer3', text: '1991', isCorrect: false },
-            { id: 'answer4', text: '1983', isCorrect: false },
-        ],
-    },
-
-];
+import { questionsData } from "../assets/quizTestData/quizTestData.js";
 
 function QuizTest(props) {
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [clickedAnswers, setClickedAnswers] = useState({});
     const [canClickNext, setCanClickNext] = useState(false);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const correctAnswers = useSelector((state) => state.quizTest.correctAnswers);
+    const { quizId } = useParams();
+
+    useEffect(() => {
+        setCurrentQuestionIndex(0);
+        setClickedAnswers({});
+        setCanClickNext(false);
+    }, [quizId]);
 
     const handleAnswerClick = (answerId, isCorrect) => {
         if (!canClickNext) {
@@ -80,8 +35,8 @@ function QuizTest(props) {
     };
 
     const handleNextQuestionClick = () => {
-        if (currentQuestionIndex === questionsData.length - 1) {
-            navigate('/finish-test');
+        if (currentQuestionIndex === currentCategory.questions.length - 1) {
+            navigate(`/finish-test/${currentCategory.questions.length}`);
         } else {
             setClickedAnswers({});
             setCanClickNext(false);
@@ -89,17 +44,23 @@ function QuizTest(props) {
         }
     };
 
-    const currentQuestion = questionsData[currentQuestionIndex];
+    const currentCategory = questionsData[quizId - 1];
+    if (!currentCategory) {
+        console.error("Данные для категории не найдены");
+        return null;
+    }
+
+    const currentQuestion = currentCategory.questions[currentQuestionIndex];
 
     return (
         <div className="container">
             <div className={styles.quizTest__header}>
                 <BackBtn path={"/quiz"} />
-                <p>{`Вопрос ${currentQuestionIndex + 1} из ${questionsData.length}`}</p>
+                <p>{`Вопрос ${currentQuestionIndex + 1} из ${currentCategory.questions.length}`}</p>
                 <div></div>
             </div>
             <div className={styles.quizTest__progressBar}>
-                <div className={styles.quizTest__progress} style={{ width: `${(currentQuestionIndex + 1) / questionsData.length * 100}%` }}></div>
+                <div className={styles.quizTest__progress} style={{ width: `${(currentQuestionIndex + 1) / currentCategory.questions.length * 100}%` }}></div>
             </div>
             <div className={styles.quizTest__question}>
                 <p>{currentQuestion.questionText}</p>
@@ -123,7 +84,7 @@ function QuizTest(props) {
                 onClick={handleNextQuestionClick}
                 disabled={!canClickNext}
             >
-                {currentQuestionIndex === questionsData.length - 1 ? 'Завершить квиз' : 'Следующий вопрос'}
+                {currentQuestionIndex === currentCategory.questions.length - 1 ? 'Завершить квиз' : 'Следующий вопрос'}
             </button>
         </div>
     );
