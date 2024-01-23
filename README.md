@@ -64,8 +64,8 @@
 
 ## Автор
 
-   Frontend developer: Elaman Zarlykov
-   Backend developer: Aibek Yrysbekov
+       Frontend developer: Elaman Zarlykov
+       Backend developer: Aibek Yrysbekov
 
 ![image](https://github.com/ElamanZ/neobis_front_quiz/assets/110537470/2510de12-f020-4562-a747-0a273c6e9a58)
 
